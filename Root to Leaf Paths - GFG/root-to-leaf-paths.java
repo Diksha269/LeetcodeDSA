@@ -134,14 +134,14 @@ class Node{
 */
 class Tree{
     ArrayList<ArrayList<Integer>> ans = new ArrayList<>();
-    ArrayList<Integer> ans1 = new ArrayList<>();
+    //ArrayList<Integer> ans1 = new ArrayList<>();
     public ArrayList<ArrayList<Integer>> Paths(Node root){
-        pathRootToLeaf(root);
+        pathRootToLeaf(root , new ArrayList<Integer>());
         return ans;
         
         
     }
-    public void pathRootToLeaf(Node root){
+    public void pathRootToLeaf(Node root ,  ArrayList<Integer> ans1){
         if(root == null) return;
       
         
@@ -151,9 +151,9 @@ class Tree{
             ans1.remove(ans1.size() - 1);
             return;
         }
-        ans1.add(root.data);
-        pathRootToLeaf(root.left);
-        pathRootToLeaf(root.right);
+        ans1.add(root.data );
+        pathRootToLeaf(root.left , ans1);
+        pathRootToLeaf(root.right , ans1);
         ans1.remove(ans1.size() - 1);
        
         return;
