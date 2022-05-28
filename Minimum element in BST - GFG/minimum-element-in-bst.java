@@ -102,23 +102,23 @@ class GfG {
 
 
 class Tree {
-  int min = Integer.MAX_VALUE;
-    int minValue(Node node ) {
-     if(node == null) return -1;
-     return minVal1(node) ;
+    int minimum = Integer.MAX_VALUE;
+    //int minimumSofar =  Integer.MAX_VALUE;
+    // Function to find the minimum element in the given BST.
+    int minValue(Node node) {
+        if(node == null) return -1;
+        if(node.left == null && node.right != null) return node.data;
+        minVal(node);
+        return minimum;
     }
-   
-   int minVal1(Node root ){
-       if(root == null) return min;
-       if(root.data < min){
-           //update min
-           min = root.data;
-        //   System.out.println(min);
-       }
+    void minVal(Node root){
+        if(root == null) return;
+        
+        if(root.data < minimum){
+            minimum = root.data;
+        }
+        minVal(root.left);
        
-       int left_min = minVal1(root.left);
-       int right_min = minVal1(root.right);
-       return Math.min(left_min , right_min);
-       
-   }
+        return ;
+    }
 }
