@@ -9,14 +9,22 @@ class Solution {
     
     public void solve(int [] nums , int target , List<Integer> ans , int idx){
       if(target == 0){
-        result.add(new ArrayList<>(ans));
+         result.add(new ArrayList<Integer>(ans));
           return;
       }
-        if(idx == nums.length || target < 0) return;
-
-          solve(nums, target,ans,idx+1 );
+        if(idx == nums.length){
+            return;}
+        if(target < 0) {
+            
+            return;}
+      
           ans.add(nums[idx]);
           solve(nums, target-nums[idx] ,ans,idx );
-          ans.remove(ans.size()-1);    
+          ans.remove(ans.size()-1);
+          solve(nums, target,ans,idx+1 );
+        
+    
+        
+    
    }
 }
