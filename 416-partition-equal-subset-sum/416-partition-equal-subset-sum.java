@@ -1,5 +1,5 @@
 class Solution {
-    Boolean mem[][];
+ 
     public boolean canPartition(int[] nums) {
         int sum = 0;
         int n = nums.length;
@@ -10,21 +10,23 @@ class Solution {
         
         sum /= 2;
         
-        mem = new Boolean[n+1][sum+1];
+        boolean dp[][] = new boolean[n+1][sum+1];
         
-        return subsetSum(nums,0,sum);
+        for(int i = 0 ; i<=n ; i++) dp[i][0] = true;
+        for(int i = 0 ; i<=sum ; i++) dp[0][i] = false;
+        for(int i = 1; i<=n ; i++){
+            for(int j = 1; j<= sum ; j++){
+                if(nums[i-1] > j){ // currsum is less than array value , so better to not include , take previous
+                    dp[i][j] = dp[i-1][j];
+                }
+                else{
+                      dp[i][j] = dp[i-1][j] || dp[i-1][j-nums[i-1]]; 
+                }
+            }
+        }
+        return dp[n][sum];
+         
+       
     }
-    
-    boolean subsetSum(int[] nums, int pos, int sum){
-        if(sum==0) return true;
-        
-        else if(pos>=nums.length || sum<0) return false;
-        
-        if(mem[pos][sum]!=null) return mem[pos][sum];
-        
-        return mem[pos][sum] = subsetSum(nums,pos+1,sum-nums[pos]) ||
-                                subsetSum(nums,pos+1,sum);
-        
-        
-    }
+  
 }
