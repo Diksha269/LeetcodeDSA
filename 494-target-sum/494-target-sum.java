@@ -1,60 +1,35 @@
-class Solution {
-    // using backtracking
-    // int count= 0;
-    int [][] dp;
-    public int findTargetSumWays(int[] nums, int target) {
     
-        return solve(nums , target , nums.length);
-       
+class Solution{
+private static Map<String, Integer> memo; // key: serialized curIndex and targetSum, value: its corresponding number of ways
+    
+    public int findTargetSumWays(int[] nums, int S) {
+        memo = new HashMap<>();        
+        return findTargetSumWaysRecur(nums, S, 0, S);
     }
     
-    public int solve(int [] nums , int target , int n){
-       
-        if(n==0 && target == 0) return 1; // got the required combination
-        if(n==0 && target != 0) return 0; // did not got
-        int pos = nums[n-1];
-        int ans1 =  solve(nums, target - pos, n-1); // taking as positive
-        int neg = -nums[n-1];
-        int ans2 = solve(nums, target - neg, n-1);  // taking as negative
-        return   ans1+ ans2;
+    private static int findTargetSumWaysRecur(int[] nums, int S, int curIndex, int targetSum) {
         
+        String curSerial= serialize(curIndex, targetSum);
+        if (memo.containsKey(curSerial)) {
+            return memo.get(curSerial);
+        }
+        
+        if (curIndex == nums.length) {
+            if (targetSum == 0) {
+                return 1;
+            }
+            return 0;
+        }
+        
+        int numWaysIfMinus = findTargetSumWaysRecur(nums, S, curIndex + 1, targetSum + nums[curIndex]); // -nums[curIndex]
+        int numWaysIfAdd = findTargetSumWaysRecur(nums, S, curIndex + 1, targetSum - nums[curIndex]); // +nums[curIndex]
+        
+        int numWays =  numWaysIfMinus + numWaysIfAdd; 
+        memo.put(curSerial, numWays);
+        return numWays;
     }
     
+    private static String serialize(int curIndex, int targetSum) {
+        return curIndex + "," + targetSum;
+    }
 }
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-//     //[1,1]
-//     public void targetSum(int [] nums , int target , int sum , int i){
-//         if(i == nums.length && sum == target) {
-//             count++;
-//             return;
-//         }
-//         if(i==nums.length) return;
-//         targetSum(nums , target , sum - nums[i] , i+1);
-//         targetSum(nums , target , sum + nums[i] , i+1);
-        
-        
-
-
-
-      
