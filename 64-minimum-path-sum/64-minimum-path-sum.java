@@ -1,5 +1,3 @@
-
-
 class Solution {
    int[][] memo;
     public int minPathSum(int[][] grid) {
@@ -17,11 +15,11 @@ class Solution {
         
         //base case
         if(x==m-1 && y==n-1) return grid[x][y];
+        if(x==m || y== n) return Integer.MAX_VALUE;
+       
+        return memo[x][y]=grid[x][y] + Math.min(solve(grid,x+1 , y, m ,n ),solve(grid,x, y+1, m ,n ));
         
-        if(x>=0 && x<m && y>=0 && y<n){
-            return memo[x][y]=grid[x][y] + Math.min(solve(grid,x+1 , y, m ,n ),solve(grid,x, y+1, m ,n ));}
-        
-        else return Integer.MAX_VALUE;
+       
     }
 }
   
