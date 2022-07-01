@@ -11,14 +11,21 @@ class Solution {
     }
     
     public int solve(int[][] grid , int x , int y , int m , int n){
-        if(memo[x][y] != -1) return memo[x][y];
-        
-        //base case
-        if(x==m-1 && y==n-1) return grid[x][y];
-        if(x==m || y== n) return Integer.MAX_VALUE;
-       
-        return memo[x][y]=grid[x][y] + Math.min(solve(grid,x+1 , y, m ,n ),solve(grid,x, y+1, m ,n ));
-        
+        int [][] dp = new int[m][n];
+        dp[0][0] = grid[0][0]; // minimum path to reach 0,0 from 0,0
+        for(int i = 1 ; i<m ; i++){
+            dp[i][0] = dp[i-1][0] + grid[i][0];
+        }
+        for(int j = 1 ; j<n ; ++j){
+            dp[0][j] = dp[0][j-1] + grid[0][j];
+        }
+        for(int i = 1 ; i<m ; ++i){
+            for(int j = 1 ; j<n ; ++j){
+                dp[i][j] = grid[i][j]
+                    +Math.min(dp[i-1][j] , dp[i][j-1]);
+            }
+        }
+        return dp[m-1][n-1];
        
     }
 }
