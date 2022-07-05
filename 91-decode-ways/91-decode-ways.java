@@ -11,9 +11,9 @@ public class Solution {
             int first = Integer.valueOf(s.substring(i - 1, i));
             int second = Integer.valueOf(s.substring(i - 2, i));
             //
-            System.out.println(dp[i]);
+           
             if (first >= 1 && first <= 9) {
-               dp[i] = dp[i-1];  
+               dp[i] += dp[i-1];  
             }
             // pair
             if (second >= 10 && second <= 26) {
