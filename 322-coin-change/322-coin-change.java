@@ -3,7 +3,7 @@ class Solution {
     int memo[];
     public int coinChange(int[] coins, int amount) {
         memo = new int[amount+1];
-        Arrays.fill(memo , 0);
+        Arrays.fill(memo , -1);
         System.out.println(min);
         int ans = solve(coins, amount);
         System.out.println(ans);
@@ -13,7 +13,7 @@ class Solution {
         }
     
     public int solve(int[] coins, int amount ){
-    if(memo[amount] != 0) return memo[amount];
+    if(memo[amount] != -1) return memo[amount];
       int ans = (int)Math.pow(10,5); 
       if(amount == 0) return 0;
       for(int i = 0; i<coins.length; ++i){
