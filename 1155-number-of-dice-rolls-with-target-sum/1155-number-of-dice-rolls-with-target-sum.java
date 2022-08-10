@@ -23,6 +23,7 @@ class Solution {
         for(int i = 1 ; i<= k ; ++i){
             
            if(target-i>=0) ans = ans + solve(n-1 , k , target - i);
+           else break;
         }
         
         return dp[n][target] = ans % 1000000007;
