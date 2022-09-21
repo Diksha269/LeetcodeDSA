@@ -1,20 +1,18 @@
 class Solution {
   Integer dp[][];
     public int maxProfit(int[] prices) {
-      dp = new Integer[5001][100];
+      dp = new Integer[5001][4];
         int n = prices.length;
         int max = 0;
         for(int i = 0 ; i< n ; i++){
             max = Math.max(max ,solve(prices, 1 , i ));
-            // System.out.println(max);
+           
         }
         
         
         return max;
     }
-    // 1 -> buy
-    // 2
-    //3
+    
     public int solve(int [] arr , int choices, int i ){
       if(dp[i][choices] != null) return dp[i][choices] ;
         if(i==arr.length-1) {
