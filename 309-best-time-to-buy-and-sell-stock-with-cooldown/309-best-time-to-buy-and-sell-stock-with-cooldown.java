@@ -1,50 +1,32 @@
 class Solution {
-  Integer dp[][];
-    public int maxProfit(int[] prices) {
-      dp = new Integer[5001][4];
-        int n = prices.length;
-        int max = 0;
-        for(int i = 0 ; i< n ; i++){
-            max = Math.max(max ,solve(prices, 1 , i ));
-           
+    private int maxProfit(int index, int stock, int[] prices, int[][] dp) {
+        if (index >= prices.length) {
+            return 0;
         }
         
+        if (dp[stock][index] != -1) {
+            return dp[stock][index];
+        }
         
-        return max;
+        if (stock == 0) {
+            dp[stock][index] = Math.max(
+                maxProfit(index + 1, 1, prices, dp) - prices[index],
+                maxProfit(index + 1, 0, prices, dp)
+            );
+        } else {
+            dp[stock][index] = Math.max(
+                maxProfit(index + 2, 0, prices, dp) + prices[index],
+                maxProfit(index + 1, 1, prices, dp)
+            );
+        }
+        return dp[stock][index];
     }
     
-    public int solve(int [] arr , int choices, int i ){
-      if(dp[i][choices] != null) return dp[i][choices] ;
-        if(i==arr.length-1) {
-         
-            return 0;}
-        
-        int ans = 0;
-        if(choices == 1){
-        
-            for(int j = i+1 ; j<arr.length ; j++){
-                if(arr[i]<arr[j]) {
-                    int pro = arr[j]-arr[i];
-                    ans = Math.max(pro+solve(arr ,2 ,j),ans);
-                  
-            }
-            }
-            
+    public int maxProfit(int[] prices) {
+        int[][] dp = new int[2][prices.length];
+        for(int[] arr : dp) {
+            Arrays.fill(arr, -1);
         }
-        else if(choices == 2) 
-        {
-           
-            if(i+1 < arr.length)
-            ans = Math.max(solve(arr, 3,i+1),ans);
-            
-        }
-        else if(choices == 3){
-            for(int j = i+1 ; j<arr.length ; j++){
-               ans= Math.max(ans,solve(arr, 1,j));
-                
-            }
-           
-        }
-        return  dp[i][choices] = ans; 
+        return maxProfit(0, 0, prices, dp);
     }
 }
