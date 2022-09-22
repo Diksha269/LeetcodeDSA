@@ -14,8 +14,8 @@ class Solution {
   
     public int solve(int arr[] , int idx , int buy ){
        if(dp[idx][buy] != null) return dp[idx][buy];
-        // System.out.println(idx);
-        if(idx == arr.length - 1) return 0;
+     
+        if(idx == arr.length ) return 0;
         
         int ans = 0;
         if(buy == 1){
@@ -27,7 +27,7 @@ class Solution {
            }
         }
         else{
-            // we need to buy
+           
           for(int i = idx + 1; i<arr.length ; i++){
               ans =  Math.max(ans,solve(arr, i , 1));
            }
