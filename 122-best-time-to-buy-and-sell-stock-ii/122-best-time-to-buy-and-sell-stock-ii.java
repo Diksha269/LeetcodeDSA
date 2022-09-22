@@ -1,39 +1,37 @@
 class Solution {
-    Integer [][] dp;
+   
+    Integer dp[][];
     public int maxProfit(int[] arr) {
-    dp = new Integer[30001][2];
-    int max = 0;
-    for(int i = 0 ; i<arr.length ; i++){
-        max = Math.max(max , solve(arr ,  i , 1));
-        
-    }
-        return max;
-       
+  
+        dp = new Integer[30001][2];
+        return solve(arr , 0 , 1);
         
     }
   
-    public int solve(int arr[] , int idx , int buy ){
-       if(dp[idx][buy] != null) return dp[idx][buy];
+    public int solve(int arr[] , int idx , int buy  ){
      
-        if(idx == arr.length ) return 0;
-        
-        int ans = 0;
+        if(dp[idx][buy] != null) return dp[idx][buy];
+        if(idx == arr.length) return 0;
+        int take=0;
+        int notTake = 0; 
+        int profit = 0;
         if(buy == 1){
-           for(int i = idx + 1; i<arr.length ; i++){
-               if(arr[i]>arr[idx]){
-                int pro = arr[i]-arr[idx];
-                ans = Math.max(ans,pro+solve(arr, i , 0));
-           }
-           }
+
+            take =  -arr[idx]+solve(arr, idx+1 , 0);
+             notTake = 0+solve(arr , idx+1 , 1);
+
+              profit = Math.max(take , notTake);
         }
         else{
-           
-          for(int i = idx + 1; i<arr.length ; i++){
-              ans =  Math.max(ans,solve(arr, i , 1));
-           }
+
+
+          take =  arr[idx]+solve(arr, idx+1 , 1);
+          notTake = 0+solve(arr , idx+1 , 0);
+          profit = Math.max(take , notTake);
+
+
         }
-        return dp[idx][buy]= ans;
-        
+        return dp[idx][buy] = profit;
     }
 }
 
