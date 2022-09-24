@@ -1,31 +1,18 @@
-class Solution{
-private Integer[][] dp;
+class Solution {
+    Integer dp [][];
     public int change(int amount, int[] coins) {
-        if (amount == 0)
-            return 1;
-        if (coins.length == 0)
-            return 0;
-        dp = new Integer[coins.length][amount + 1];
-        return changeFrom(amount, coins, 0);
+        dp = new Integer[301][5001];
+        return solve(coins, amount , coins.length);
     }
     
-    private int changeFrom(int amount, int[] coins, int currentIndex) {
-        if (amount == 0)
-          return 1;
-
-        if (amount < 0 || currentIndex == coins.length)
-          return 0;
-
-        if (dp[currentIndex][amount] != null)
-            return dp[currentIndex][amount];
-        
-        // Recursive call after selecting the coin at the currentIndex
-        int sum1 = changeFrom(amount - coins[currentIndex], coins, currentIndex);
-
-        // Recursive call after excluding the coin at the currentIndex
-        int sum2 = changeFrom(amount, coins, currentIndex + 1);
-
-        dp[currentIndex][amount] = sum1 + sum2;
-        return dp[currentIndex][amount];
+    public int solve(int [] arr , int amount , int n){
+        if(dp[n][amount] != null) return dp[n][amount];
+        if(amount == 0) return 1;
+        if(n==0 && amount != 0 ) return 0;
+            
+        if(arr[n-1] <= amount){
+            return dp[n][amount] = solve(arr, amount , n-1)+ solve(arr,amount - arr[n-1] , n);
+        }
+        else return dp[n][amount] = solve(arr, amount , n-1);
     }
 }
