@@ -4,19 +4,27 @@ class Solution {
         for(String str : wordDict){
             set.add(str);
         }
-      
-        boolean f[] = new boolean [s.length()+1];
-        f[0] = true;
-        for(int i=1; i <= s.length(); i++){
-            for(int j=0; j < i; j++){
-                if(f[j] && set.contains(s.substring(j, i))){
-                    f[i] = true;
+        
+        int dp[] = new int [s.length()];
+        if(set.contains(s.substring(0,1))) dp[0]  = 1;
+        else dp[0] = 0;
+        for(int i = 1 ; i<s.length() ; i++){
+            for(int j = 0 ; j<=i ; j++){
+                if(j>0 && dp[j-1] == 1 && set.contains(s.substring(j,i+1))){
+                   dp[i] = 1;
                     break;
+                    
                 }
+                if(j==0 && set.contains(s.substring(j,i+1))){
+                   dp[i] = 1;
+                  
+                    
+                }
+                
+                
             }
         }
-        
-        return f[s.length()];
+        return dp[s.length()-1]>0;
         
     }
 }
