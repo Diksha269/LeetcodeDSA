@@ -12,7 +12,7 @@ class Solution {
             for(int j = 0 ; j<=i ; j++){
                 if(j>0 && dp[j-1] == 1 && set.contains(s.substring(j,i+1))){
                    dp[i] = 1;
-                    break;
+                  
                     
                 }
                 if(j==0 && set.contains(s.substring(j,i+1))){
