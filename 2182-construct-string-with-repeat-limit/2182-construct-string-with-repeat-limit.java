@@ -23,9 +23,9 @@ class Solution
         map.put(s.charAt(i),map.getOrDefault(s.charAt(i),0)+1);
         
         PriorityQueue<Pair> pq=new PriorityQueue<>();
-        Set<Character> set=map.keySet();
-        for(char ch:set)
-        pq.offer(new Pair(ch,map.get(ch)));
+        for(Map.Entry<Character,Integer> entry : map.entrySet()){
+            pq.add(new Pair(entry.getKey(),entry.getValue()));
+        }
         
         StringBuilder sb=new StringBuilder();
         
