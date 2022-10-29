@@ -13,14 +13,14 @@ class Solution {
     }
     
     public void dfs(int i , int j , int r , int c , char[][] grid){
-        if(i<0 || i>=r || j<0 || j>=c || grid[i][j] == '0') return;
-       else if(grid[i][j] != '2'){
+        if(i<0 || i>=r || j<0 || j>=c || grid[i][j] == '0' || grid[i][j] == '2') return;
+     
         grid[i][j] = '2';
         dfs(i,j+1,r,c,grid);
         dfs(i+1,j,r,c,grid);
         dfs(i-1,j,r,c,grid);
         dfs(i,j-1,r,c,grid);
-    }
+    
 }}
 
   
